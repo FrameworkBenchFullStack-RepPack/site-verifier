@@ -1,4 +1,5 @@
 import { Builder, logging, WebDriver } from "selenium-webdriver";
+import chrome from "selenium-webdriver/chrome";
 
 export type DriverOptions = {
   js?: boolean;
@@ -14,8 +15,17 @@ export async function getDriver(
   let urlString = typeof url === "string" ? url : url.toString();
   let driver: WebDriver;
   try {
+    const chromeOptions = new chrome.Options();
+
+    if (options?.js === false) {
+      chromeOptions.setUserPreferences({
+        "profile.managed_default_content_settings.javascript": 2,
+      });
+    }
+
     driver = await new Builder()
       .forBrowser("chrome")
+      .setChromeOptions(chromeOptions)
       .setLoggingPrefs(loggingPrefs)
       .build();
 
