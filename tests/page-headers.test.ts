@@ -10,8 +10,14 @@ type LinkMeta = {
 
 const links: Map<string, LinkMeta> = new Map();
 
-links.set("/partials/list", {url: new URL("/partials/list", pages.home.url), type:"text/html"})
-links.set("/api/live", {url: new URL("/api/live", pages.home.url), type:"text/event-stream"})
+links.set("/partials/list", {
+  url: new URL("/partials/list", pages.home.url),
+  type: "text/html",
+});
+links.set("/api/live", {
+  url: new URL("/api/live", pages.home.url),
+  type: "text/event-stream",
+});
 
 for (const [name, meta] of Object.entries(pages)) {
   links.set(meta.url.pathname, { url: meta.url, type: "text/html" });
@@ -49,7 +55,11 @@ for (const [pathname, link] of links.entries()) {
       response = await fetch(link.url);
     });
 
-    if (link.type.includes("html") || link.type.includes("xml") || link.type.includes("svg")) {
+    if (
+      link.type.includes("html") ||
+      link.type.includes("xml") ||
+      link.type.includes("svg")
+    ) {
       it("Uses a content security policy", async () => {
         const csp = response.headers.get("Content-Security-Policy");
         expect(csp, "CSP is used").not.toBeNull();
@@ -89,13 +99,13 @@ for (const [pathname, link] of links.entries()) {
       );
     });
 
-    if(!link.type.includes("event-stream")){
-    it("Uses compression", async () => {
-      const ce = response.headers.get("Content-Encoding") ?? "";
-      expect(ce, "Compression header is present").toMatch(
-        /^(?:gzip|br|zstd)$/v,
-      );
-    });
-  }
+    if (!link.type.includes("event-stream")) {
+      it("Uses compression", async () => {
+        const ce = response.headers.get("Content-Encoding") ?? "";
+        expect(ce, "Compression header is present").toMatch(
+          /^(?:gzip|br|zstd)$/v,
+        );
+      });
+    }
   });
 }
