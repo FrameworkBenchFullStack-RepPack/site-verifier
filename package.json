@@ -1,0 +1,30 @@
+{
+  "name": "site-verifier",
+  "version": "1.0.0",
+  "description": "Conformance test suite for test sites",
+  "homepage": "https://github.com/FrameworkBenchFullStack-RepPack/site-verifier#readme",
+  "bugs": {
+    "url": "https://github.com/FrameworkBenchFullStack-RepPack/site-verifier/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FrameworkBenchFullStack-RepPack/site-verifier.git"
+  },
+  "license": "MIT",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "selenium-webdriver": "^4.41.0",
+    "vitest": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/selenium-webdriver": "^4.35.5",
+    "prettier": "^3.8.1"
+  }
+}
