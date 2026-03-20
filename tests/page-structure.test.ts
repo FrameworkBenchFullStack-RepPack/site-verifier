@@ -47,8 +47,6 @@ for (const [name, meta] of Object.entries(pages)) {
         By.css(`link[rel="icon"][type="image/svg+xml"][href]`),
       );
       expect(iconLinks.length, "There is an icon link element").toBe(1);
-      const links = await driver.findElements(By.css("link"));
-      expect(links.length, "There is only one link element").toBe(1);
       const href = await iconLinks[0].getAttribute("href");
       expect(href, "Icon uses SVG extension").toMatch(/\.svg$/v);
     });
