@@ -99,6 +99,34 @@ for (const [pathname, link] of links.entries()) {
       );
     });
 
+    it("Controls caching", () => {
+      const cc = response.headers.get("Cache-Control");
+      expect(cc, "Sets a Cache-Control header").not.toBeNull();
+      if (link.type.includes("event-stream")) {
+        expect(cc, "Blocks caching of data").toContain("no-cache");
+        expect(cc, "Blocks storage of data").toContain("no-store");
+      } else {
+        expect(cc, "Allows public caching").toContain("public");
+        expect(cc, "Sets the max age").toContain("max-age=");
+        const match = cc?.match(/max-age=(?<secs>\d+)/v);
+        const secStr = match?.groups?.secs;
+        expect(secStr, "Max age directive sets an age").toBeTruthy();
+        const secs = Number.parseInt(secStr as string);
+        expect(secs, "Max age is proper number").not.toBeNaN();
+        if (link.type === "text/html") {
+          expect(
+            secs,
+            "Max age is set to at least 1 hour",
+          ).toBeGreaterThanOrEqual(3600);
+        } else {
+          expect(
+            secs,
+            "Max age is set to at least 1 day",
+          ).toBeGreaterThanOrEqual(86400);
+        }
+      }
+    });
+
     if (!link.type.includes("event-stream")) {
       it("Uses compression", async () => {
         const ce = response.headers.get("Content-Encoding") ?? "";
