@@ -48,7 +48,7 @@ for (const [name, meta] of Object.entries(pages)) {
       );
       expect(iconLinks.length, "There is an icon link element").toBe(1);
       const href = await iconLinks[0].getAttribute("href");
-      expect(href, "Icon uses SVG extension").toMatch(/\.svg$/v);
+      expect(href, "Icon has correct pathname").toMatch(/\/favicon.svg$/v);
     });
     it("Has a title", async () => {
       const titles = await driver.findElements(By.css("title"));
