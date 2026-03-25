@@ -1,8 +1,4 @@
-import "dotenv/config";
-
-const siteUrl = process.env.SITE_URL;
-
-if (!siteUrl) throw new Error("No SITE_URL set in env.");
+import { siteUrl } from "./env";
 
 /**
  * What type of layout is used on the page
