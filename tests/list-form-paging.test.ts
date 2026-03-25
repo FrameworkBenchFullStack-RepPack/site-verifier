@@ -1,5 +1,5 @@
 import { By, Key, WebDriver } from "selenium-webdriver";
-import { beforeAll, afterAll, it, describe, expect } from "vitest";
+import { beforeAll, afterAll, it, describe } from "vitest";
 import { getDriver } from "../lib/driver";
 import {
   compareTableRows,

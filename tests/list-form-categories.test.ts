@@ -1,5 +1,5 @@
 import { By, WebDriver } from "selenium-webdriver";
-import { beforeAll, afterAll, it, describe, expect } from "vitest";
+import { beforeAll, afterAll, it, describe } from "vitest";
 import { getDriver } from "../lib/driver";
 import {
   compareTableRows,
@@ -16,7 +16,7 @@ function tableFinder() {
   return driver.findElement(By.css("#list-data table"));
 }
 
-async function clickCategory(
+async function toggleCategory(
   config: ListConfig,
   category: 1 | 2 | 3 | 4,
 ): Promise<void> {
@@ -47,7 +47,7 @@ for (const config of listConfigs) {
         .orderBy(asc(person.name))
         .limit(100);
 
-      await clickCategory(config, 2);
+      await toggleCategory(config, 2);
       await driver.wait(
         async () => {
           const pageRows = await getTableRows(tableFinder);
@@ -66,7 +66,7 @@ for (const config of listConfigs) {
         .orderBy(asc(person.name))
         .limit(100);
 
-      await clickCategory(config, 4);
+      await toggleCategory(config, 4);
       await driver.wait(
         async () => {
           const pageRows = await getTableRows(tableFinder);
@@ -85,7 +85,7 @@ for (const config of listConfigs) {
         .orderBy(asc(person.name))
         .limit(100);
 
-      await clickCategory(config, 3);
+      await toggleCategory(config, 3);
       await driver.wait(
         async () => {
           const pageRows = await getTableRows(tableFinder);
@@ -103,7 +103,7 @@ for (const config of listConfigs) {
         .orderBy(asc(person.name))
         .limit(100);
 
-      await clickCategory(config, 1);
+      await toggleCategory(config, 1);
       await driver.wait(
         async () => {
           const pageRows = await getTableRows(tableFinder);
