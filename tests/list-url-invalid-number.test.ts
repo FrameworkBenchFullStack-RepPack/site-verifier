@@ -167,7 +167,6 @@ for (const page of [pages.list, pages.home]) {
       });
 
       it(`${description}: ${params}`, async () => {
-        await driver.get(page.url.href);
         expect(
           (await driver.findElements(By.css("#list-data table"))).length,
           "A page with a table is returned",
