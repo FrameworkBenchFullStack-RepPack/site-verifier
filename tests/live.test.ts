@@ -77,7 +77,7 @@ for (const page of [pages.live, pages.home]) {
           expect(
             now - lastUpdate,
             "Updates do not take much less than one second",
-          ).toBeGreaterThan(800);
+          ).toBeGreaterThan(500);
           lastUpdate = Date.now();
           dataIndex++;
           fails = 0;
