@@ -93,7 +93,44 @@ for (const config of listConfigs) {
       expect(ageToMax, "Age to is limited to max 100").toBe("100");
       expect(ageToStep, "Age to is stepped as integer").toBe("1");
 
-      // TODO: Categories
+      const categories = await controlsElement.findElements(
+        By.css(`input[type="checkbox"][name="category"]`),
+      );
+      expect(categories.length, "Has four categories").toBe(4);
+
+      const categoryDapibus = await controlsElement.findElements(
+        By.css(
+          `label:nth-of-type(1) > input[type="checkbox"][name="category"][value="4"]`,
+        ),
+      );
+      expect(categoryDapibus.length, `First category is id 4 (Dapibus)`).toBe(
+        1,
+      );
+
+      const categoryEgestas = await controlsElement.findElements(
+        By.css(
+          `label:nth-of-type(2) > input[type="checkbox"][name="category"][value="3"]`,
+        ),
+      );
+      expect(categoryEgestas.length, `Second category is id 3 (Egestas)`).toBe(
+        1,
+      );
+
+      const categoryMetus = await controlsElement.findElements(
+        By.css(
+          `label:nth-of-type(3) > input[type="checkbox"][name="category"][value="2"]`,
+        ),
+      );
+      expect(categoryMetus.length, `Third category is id 2 (Metus)`).toBe(1);
+
+      const categoryRhoncus = await controlsElement.findElements(
+        By.css(
+          `label:nth-of-type(4) > input[type="checkbox"][name="category"][value="1"]`,
+        ),
+      );
+      expect(categoryRhoncus.length, `Fourth category is id 1 (Rhoncus)`).toBe(
+        1,
+      );
 
       const sizeElements = await controlsElement.findElements(
         By.css(`input[type="number"][name="size"]`),
