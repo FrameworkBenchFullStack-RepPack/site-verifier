@@ -31,3 +31,10 @@ Run the following command:
 ```sh
 npm run test
 ```
+
+You can specify a filter after the command to only run tests files which names include the string.
+For example, to only run tests specific to the `live` page, run:
+
+```sh
+npm run test live
+```
