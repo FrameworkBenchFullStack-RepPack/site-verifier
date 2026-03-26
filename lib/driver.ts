@@ -9,7 +9,7 @@ const loggingPrefs = new logging.Preferences();
 loggingPrefs.setLevel(logging.Type.BROWSER, logging.Level.ALL);
 
 export async function getDriver(
-  url: URL | string,
+  url: URL | string | false,
   options?: DriverOptions,
 ): Promise<WebDriver> {
   let urlString = typeof url === "string" ? url : url.toString();
@@ -29,7 +29,7 @@ export async function getDriver(
       .setLoggingPrefs(loggingPrefs)
       .build();
 
-    await driver.get(urlString);
+    if (url !== false) await driver.get(urlString);
   } catch (error) {
     await driver!?.quit();
     throw error;

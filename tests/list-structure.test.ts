@@ -122,7 +122,7 @@ for (const config of listConfigs) {
       const pageStep = await pageElement.getAttribute("step");
       expect(pageValue, "Default page value is 1").toBe("1");
       expect(pageMin, "Page is limited to min 1").toBe("1");
-      expect(pageMax, "Page is not limited to a max value").toBe("");
+      expect(pageMax, "Page is limited to max 2,000,000").toBe("2000000");
       expect(pageStep, "Page is stepped as integer").toBe("1");
 
       const buttonElements = await controlsElement.findElements(

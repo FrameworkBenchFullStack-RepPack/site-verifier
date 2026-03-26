@@ -18,32 +18,42 @@ const paramConfigs = [
   ],
   ["sort=name&age-from=0", "Only partial params"],
   ["sort=name&age-from=0&po&0=age-to", "Partial params with mangled data"],
+  ["sort=name&age-from=0&", "Partial params with dangling separator"],
+  ["&sort=name&age-from=0", "Partial params with leading separator"],
+  ["sort=name;age-from=0;age-to=100", "Partial params with wrong separator"],
+  [
+    "sort={}&age-from={}&age-to={}&category={}&size={}&page={}",
+    "Object params",
+  ],
+  ["sort=[]&age-from=[]&age-to=[]&category=[]&size=[]&page=[]", "Array params"],
+  [
+    "sort=true&age-from=true&age-to=true&category=true&size=true&page=true",
+    "Boolean true params",
+  ],
+  [
+    "sort=false&age-from=false&age-to=false&category=false&size=false&page=false",
+    "Boolean false params",
+  ],
+  [
+    "sort=undefined&age-from=undefined&age-to=undefined&category=undefined&size=undefined&page=undefined",
+    "Explicitly undefined params",
+  ],
+  [
+    "sort=null&age-from=null&age-to=null&category=null&size=null&page=null",
+    "Null params",
+  ],
+  [
+    "sort=🫃🏽category&age-from=🚨40&age-to=💺40&category=🗣3&size=🌯2&page=🖱2",
+    "Emoji params",
+  ],
   [
     "sort=hair&age-from=0&age-to=100&category=4&category=3&category=2&category=1&page=1",
     "Invalid sort param",
   ],
   [
-    "sort=name&age-from=0.3&age-to=99.8&category=3.5&page=1.1",
-    "Decimal params",
+    "sort%3Dcategory%26age-from%3D39%26age-to%3D72%26category%3D3%26category%3D2%26size%3D21%26page%3D2",
+    "Incorrect URL-encoding",
   ],
-  ["sort=name&age-from=-1&age-to=-100&&category=-3&page=-1", "Negative params"],
-  [
-    "sort=name&age-from=0&age-to=100&category=5&category=4&category=3&category=2&category=1&page=1",
-    "Invalid category",
-  ],
-  [
-    "sort=name&age-from=9007199254740991&age-to=8007199254740991&category=907199254740991&page=907199254740991",
-    "Large numbers",
-  ],
-  [
-    "sort=name&age-from=900719925474099100&age-to=90407199254740991579394&category=904071992547409915347939&page=9410071943454925474099100",
-    "Very large numbers",
-  ],
-  [
-    "sort=name&age-from=zero&age-to=hundred&category=four&page=first",
-    "String integers",
-  ],
-  ["sort={}&age-from={}&age-to={}&category={}&page={}", "Object params"],
 ];
 
 const dbRows = await db
@@ -72,6 +82,10 @@ for (const page of [pages.list, pages.home]) {
       });
 
       it(`${description}: ${params}`, async () => {
+        expect(
+          (await driver.findElements(By.css("#list-data table"))).length,
+          "A page with a table is returned",
+        ).toBe(1);
         const tableRows = await getTableRows(tableFinder);
         expect(tableRows.length, "Table size is correct").toBe(
           page === pages.home ? 8 : 100,
