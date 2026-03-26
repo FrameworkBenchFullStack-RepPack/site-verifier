@@ -56,39 +56,39 @@ const paramConfigs = [
   ["sort=name&age-from=127&age-to=127", "Numbers matching Java byte limit"],
   ["sort=name&age-from=128&age-to=128", "Numbers matching Java byte limit +1"],
   [
-    "sort=name&age-from=4892&age-to=1953&page=7301",
+    "sort=name&age-from=4892&age-to=1953&size=7301",
     "Numbers between byte and smallint/short limits",
   ],
   [
-    "sort=name&age-from=32766&age-to=32766&page=32766",
+    "sort=name&age-from=32766&age-to=32766&size=32766",
     "Numbers matching Postgres smallint and Java short limit -1",
   ],
   [
-    "sort=name&age-from=32767&age-to=32767&page=32767",
+    "sort=name&age-from=32767&age-to=32767&size=32767",
     "Numbers matching Postgres smallint and Java short limit",
   ],
   [
-    "sort=name&age-from=32768&age-to=32768&page=32768",
+    "sort=name&age-from=32768&age-to=32768&size=32768",
     "Numbers matching Postgres smallint and Java short limit +1",
   ],
   [
-    "sort=name&age-from=96740&age-to=56490&page=80032",
+    "sort=name&age-from=96740&age-to=56490&size=80032",
     "Numbers between smallint/short and numeric limits",
   ],
   [
-    "sort=name&age-from=131071&age-to=131071&page=131071",
+    "sort=name&age-from=131071&age-to=131071&size=131071",
     "Numbers matching Postgres numeric limit -1",
   ],
   [
-    "sort=name&age-from=131072&age-to=131072&page=131072",
+    "sort=name&age-from=131072&age-to=131072&size=131072",
     "Numbers matching Postgres numeric limit",
   ],
   [
-    "sort=name&age-from=131073&age-to=131073&page=131073",
+    "sort=name&age-from=131073&age-to=131073&size=131073",
     "Numbers matching Postgres numeric limit +1",
   ],
   [
-    "sort=name&age-from=11468940&age-to=684920310&page=823032777",
+    "sort=name&age-from=11468940&age-to=684920310&size=823032777",
     "Numbers between numeric and integer/int limits",
   ],
   [
