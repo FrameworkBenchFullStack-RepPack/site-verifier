@@ -8,9 +8,6 @@ import { sleep } from "../lib/sleep";
 let driver: WebDriver;
 
 function getIndexData(index: number): [string, string, string] {
-  if (index === -1) {
-    return ["", "", ""];
-  }
   return liveData[index].map((num) => String(num)) as [string, string, string];
 }
 
@@ -32,7 +29,28 @@ for (const page of [pages.live, pages.home]) {
       expect(tagName, "Element is a table").toBe("table");
     });
     it("Updates table cells with correct values", async () => {
-      let dataIndex = -1;
+      let initialCellText: string;
+      await driver.wait(
+        async () => {
+          initialCellText = await (
+            await driver.findElement(
+              By.css("#live-data > tbody > tr > td:first-of-type"),
+            )
+          ).getText();
+          return Boolean(initialCellText);
+        },
+        2000,
+        "Live data is populated",
+        100,
+      );
+
+      let dataIndex = liveData.findIndex(
+        (data) => String(data[0]) === initialCellText,
+      );
+      expect(
+        dataIndex,
+        "Initially populated data is in live data list",
+      ).not.toBe(-1);
       let lastUpdate = Date.now();
       let fails = 0;
       while (dataIndex < liveData.length - 1) {
