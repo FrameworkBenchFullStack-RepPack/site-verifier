@@ -66,7 +66,7 @@ for (const config of listConfigs) {
       ).toBe("Category");
 
       const ageFromElements = await controlsElement.findElements(
-        By.css(`input[type="number"][name="age-from"]`),
+        By.css(`input[type="number"][name="age_from"]`),
       );
       expect(ageFromElements.length, "There is an age from input").toBe(1);
       const ageFromElement = ageFromElements[0];
@@ -80,7 +80,7 @@ for (const config of listConfigs) {
       expect(ageFromStep, "Age from is stepped as integer").toBe("1");
 
       const ageToElements = await controlsElement.findElements(
-        By.css(`input[type="number"][name="age-to"]`),
+        By.css(`input[type="number"][name="age_to"]`),
       );
       expect(ageToElements.length, "There is an age to input").toBe(1);
       const ageToElement = ageToElements[0];

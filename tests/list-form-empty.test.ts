@@ -17,7 +17,7 @@ for (const config of listConfigs) {
     });
 
     it("Can handle empty inputs", async () => {
-      const names = ["age-from", "age-to", "size", "page"];
+      const names = ["age_from", "age_to", "size", "page"];
 
       const deleteKeys = [
         Key.ARROW_RIGHT,

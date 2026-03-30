@@ -18,7 +18,7 @@ function tableFinder() {
 
 async function setAge(
   config: ListConfig,
-  name: "age-from" | "age-to",
+  name: "age_from" | "age_to",
   value: number,
 ): Promise<void> {
   await driver.findElement(By.css(`input[name="${name}"]`)).click();
@@ -41,11 +41,11 @@ async function setAge(
 }
 
 function setAgeFrom(config: ListConfig, value: number): Promise<void> {
-  return setAge(config, "age-from", value);
+  return setAge(config, "age_from", value);
 }
 
 function setAgeTo(config: ListConfig, value: number): Promise<void> {
-  return setAge(config, "age-to", value);
+  return setAge(config, "age_to", value);
 }
 
 for (const config of listConfigs) {
