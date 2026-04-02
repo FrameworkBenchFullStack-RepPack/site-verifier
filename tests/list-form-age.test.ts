@@ -10,6 +10,7 @@ import {
 import { db } from "../data/database";
 import { category, person } from "../drizzle/schema";
 import { and, asc, eq, gte, lte } from "drizzle-orm";
+import { sendKeys } from "../lib/input";
 
 let driver: WebDriver;
 function tableFinder() {
@@ -22,18 +23,15 @@ async function setAge(
   value: number,
 ): Promise<void> {
   await driver.findElement(By.css(`input[name="${name}"]`)).click();
-  await driver
-    .actions()
-    .sendKeys(
-      Key.ARROW_RIGHT,
-      Key.ARROW_RIGHT,
-      Key.ARROW_RIGHT,
-      Key.BACK_SPACE,
-      Key.BACK_SPACE,
-      Key.BACK_SPACE,
-      String(value),
-    )
-    .perform();
+  await sendKeys(driver, [
+    Key.ARROW_RIGHT,
+    Key.ARROW_RIGHT,
+    Key.ARROW_RIGHT,
+    Key.BACK_SPACE,
+    Key.BACK_SPACE,
+    Key.BACK_SPACE,
+    ...String(value),
+  ]);
 
   if (config.js === false) {
     await driver.findElement(By.css(`#list form button`)).click();

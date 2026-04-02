@@ -3,6 +3,7 @@ import { beforeAll, afterAll, it, describe, expect } from "vitest";
 import { getDriver } from "../lib/driver";
 import { listConfigs } from "../lib/list";
 import { sleep } from "../lib/sleep";
+import { sendKeys } from "../lib/input";
 
 let driver: WebDriver;
 
@@ -30,10 +31,7 @@ for (const config of listConfigs) {
 
       for (const name of names) {
         await driver.findElement(By.css(`#list input[name="${name}"]`)).click();
-        await driver
-          .actions()
-          .sendKeys(...deleteKeys)
-          .perform();
+        await sendKeys(driver, deleteKeys);
       }
 
       await sleep(2000);
