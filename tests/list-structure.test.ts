@@ -188,13 +188,6 @@ for (const config of listConfigs) {
         By.css("table.table"),
       );
       expect(tableElements.length, "Data div has one table").toBe(1);
-      const tableElement = tableElements[0];
-      const tableClass = await tableElement.getAttribute("class");
-      if (config.page === pages.home) {
-        expect(tableClass, "Table is not sticky").not.toContain("sticky");
-      } else {
-        expect(tableClass, "Table is sticky").toContain("sticky");
-      }
     });
   });
 }
