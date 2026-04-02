@@ -74,10 +74,12 @@ for (const config of listConfigs) {
       const ageFromMin = await ageFromElement.getAttribute("min");
       const ageFromMax = await ageFromElement.getAttribute("max");
       const ageFromStep = await ageFromElement.getAttribute("step");
+      const ageFromRequired = await ageFromElement.getAttribute("required");
       expect(ageFromValue, "Default age from value is 0").toBe("0");
       expect(ageFromMin, "Age from is limited to min 0").toBe("0");
       expect(ageFromMax, "Age from is limited to max 100").toBe("100");
       expect(ageFromStep, "Age from is stepped as integer").toBe("1");
+      expect(ageFromRequired, "Age from input is required").toBe("true");
 
       const ageToElements = await controlsElement.findElements(
         By.css(`input[type="number"][name="age_to"]`),
@@ -88,10 +90,12 @@ for (const config of listConfigs) {
       const ageToMin = await ageToElement.getAttribute("min");
       const ageToMax = await ageToElement.getAttribute("max");
       const ageToStep = await ageToElement.getAttribute("step");
+      const ageToRequired = await ageToElement.getAttribute("required");
       expect(ageToValue, "Default age to value is 100").toBe("100");
       expect(ageToMin, "Age to is limited to min 0").toBe("0");
       expect(ageToMax, "Age to is limited to max 100").toBe("100");
       expect(ageToStep, "Age to is stepped as integer").toBe("1");
+      expect(ageToRequired, "Age to input is required").toBe("true");
 
       const categories = await controlsElement.findElements(
         By.css(`input[type="checkbox"][name="category"]`),
@@ -141,12 +145,14 @@ for (const config of listConfigs) {
       const sizeMin = await sizeElement.getAttribute("min");
       const sizeMax = await sizeElement.getAttribute("max");
       const sizeStep = await sizeElement.getAttribute("step");
+      const sizeRequired = await sizeElement.getAttribute("required");
       expect(sizeValue, "Default size value is 100").toBe(
         config.page === pages.home ? "8" : "100",
       );
       expect(sizeMin, "Size is limited to min 1").toBe("1");
       expect(sizeMax, "Size is limited to max 1000").toBe("1000");
       expect(sizeStep, "Size is stepped as integer").toBe("1");
+      expect(sizeRequired, "Size input is required").toBe("true");
 
       const pageElements = await controlsElement.findElements(
         By.css(`input[type="number"][name="page"]`),
@@ -157,10 +163,12 @@ for (const config of listConfigs) {
       const pageMin = await pageElement.getAttribute("min");
       const pageMax = await pageElement.getAttribute("max");
       const pageStep = await pageElement.getAttribute("step");
+      const pageRequired = await pageElement.getAttribute("required");
       expect(pageValue, "Default page value is 1").toBe("1");
       expect(pageMin, "Page is limited to min 1").toBe("1");
       expect(pageMax, "Page is limited to max 2,000,000").toBe("2000000");
       expect(pageStep, "Page is stepped as integer").toBe("1");
+      expect(pageRequired, "Page input is required").toBe("true");
 
       const buttonElements = await controlsElement.findElements(
         By.css(`button`),
