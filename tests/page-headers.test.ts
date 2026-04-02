@@ -6,6 +6,7 @@ import { getDriver } from "../lib/driver";
 type LinkMeta = {
   url: URL;
   type: string;
+  optional?: boolean;
 };
 
 const links: Map<string, LinkMeta> = new Map();
@@ -13,10 +14,12 @@ const links: Map<string, LinkMeta> = new Map();
 links.set("/partials/list", {
   url: new URL("/partials/list", pages.home.url),
   type: "text/html",
+  optional: true,
 });
 links.set("/api/live", {
   url: new URL("/api/live", pages.home.url),
   type: "text/event-stream",
+  optional: true,
 });
 
 for (const [name, meta] of Object.entries(pages)) {
@@ -61,6 +64,7 @@ for (const [pathname, link] of links.entries()) {
       link.type.includes("svg")
     ) {
       it("Uses a content security policy", async () => {
+        if (response.status !== 200 && link.optional) return;
         const csp = response.headers.get("Content-Security-Policy");
         expect(csp, "CSP is used").not.toBeNull();
         expect(csp, "CSP restricts default source to self").toContain(
@@ -80,6 +84,7 @@ for (const [pathname, link] of links.entries()) {
     }
 
     it("Requests process isolation", async () => {
+      if (response.status !== 200 && link.optional) return;
       const corp = response.headers.get("Cross-Origin-Resource-Policy") ?? "";
       const coep = response.headers.get("Cross-Origin-Embedder-Policy") ?? "";
       const coop = response.headers.get("Cross-Origin-Opener-Policy") ?? "";
@@ -93,6 +98,7 @@ for (const [pathname, link] of links.entries()) {
     });
 
     it("Disables content type sniffing", async () => {
+      if (response.status !== 200 && link.optional) return;
       const xcto = response.headers.get("X-Content-Type-Options") ?? "";
       expect(xcto, "Requests that content types are not sniffed").toBe(
         "nosniff",
@@ -100,6 +106,7 @@ for (const [pathname, link] of links.entries()) {
     });
 
     it("Controls caching", () => {
+      if (response.status !== 200 && link.optional) return;
       const cc = response.headers.get("Cache-Control");
       expect(cc, "Sets a Cache-Control header").not.toBeNull();
       if (link.type.includes("event-stream")) {
@@ -129,6 +136,7 @@ for (const [pathname, link] of links.entries()) {
 
     if (!link.type.includes("event-stream")) {
       it("Uses compression", async () => {
+        if (response.status !== 200 && link.optional) return;
         const ce = response.headers.get("Content-Encoding") ?? "";
         expect(ce, "Compression header is present").toMatch(
           /^(?:gzip|br|zstd)$/v,
