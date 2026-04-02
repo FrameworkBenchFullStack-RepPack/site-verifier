@@ -171,11 +171,13 @@ for (const config of listConfigs) {
       expect(pageRequired, "Page input is required").toBe("true");
 
       const buttonElements = await controlsElement.findElements(
-        By.css(`button`),
+        By.css(`button, input[type="submit"]`),
       );
       expect(buttonElements.length, "There is a submit button").toBe(1);
       const buttonElement = buttonElements[0];
-      const buttonText = await buttonElement.getText();
+      const buttonText =
+        (await buttonElement.getAttribute("value")) ??
+        (await buttonElement.getText());
       expect(buttonText, "Button has correct text").toBe("Search");
     });
 
