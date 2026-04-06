@@ -28,7 +28,7 @@ async function setSort(
   await select.selectByValue(value);
 
   if (config.js === false) {
-    await driver.findElement(By.css(`#list form button`)).click();
+    await driver.findElement(By.css(`#list form :is(button, input[type="submit"])`)).click();
   }
 }
 
