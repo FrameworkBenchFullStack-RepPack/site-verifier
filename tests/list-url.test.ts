@@ -9,15 +9,15 @@ import { and, asc, eq, gte, inArray, lte } from "drizzle-orm";
 
 const paramConfigs = [
   [
-    "sort=category&age_from=39&age_to=72&category=3&category=2&size=21&page=2",
+    "sort=category&age_from=39&age_to=72&category=3&category=2&size=21&page_num=2",
     "Standard",
   ],
   [
-    "sort=%63%61teg%6Fry&age_from=39&age_to=%372&category=3&category=%32&size=21&page=2",
+    "sort=%63%61teg%6Fry&age_from=39&age_to=%372&category=3&category=%32&size=21&page_num=2",
     "URL-encoded values",
   ],
   [
-    "s%6Frt=category&age_from=39&%61ge_to=72&category=3&category=2&siz%65=21&page=2",
+    "s%6Frt=category&age_from=39&%61ge_to=72&category=3&category=2&siz%65=21&page_num=2",
     "URL-encoded keys",
   ],
 ];

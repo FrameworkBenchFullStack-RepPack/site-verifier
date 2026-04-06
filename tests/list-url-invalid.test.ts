@@ -9,11 +9,11 @@ import { asc, eq } from "drizzle-orm";
 
 const paramConfigs = [
   [
-    "sort=&age_from=&age_to=&category=&category=&size=&page=",
+    "sort=&age_from=&age_to=&category=&category=&size=&page_num=",
     "Params with no specified data",
   ],
   [
-    "sort=name&age_from=0&age_to=&category=&category=&size=&page=",
+    "sort=name&age_from=0&age_to=&category=&category=&size=&page_num=",
     "All params with only partial specified data",
   ],
   ["sort=name&age_from=0", "Only partial params"],
@@ -22,36 +22,39 @@ const paramConfigs = [
   ["&sort=name&age_from=0", "Partial params with leading separator"],
   ["sort=name;age_from=0;age_to=100", "Partial params with wrong separator"],
   [
-    "sort={}&age_from={}&age_to={}&category={}&size={}&page={}",
+    "sort={}&age_from={}&age_to={}&category={}&size={}&page_num={}",
     "Object params",
   ],
-  ["sort=[]&age_from=[]&age_to=[]&category=[]&size=[]&page=[]", "Array params"],
   [
-    "sort=true&age_from=true&age_to=true&category=true&size=true&page=true",
+    "sort=[]&age_from=[]&age_to=[]&category=[]&size=[]&page_num=[]",
+    "Array params",
+  ],
+  [
+    "sort=true&age_from=true&age_to=true&category=true&size=true&page_num=true",
     "Boolean true params",
   ],
   [
-    "sort=false&age_from=false&age_to=false&category=false&size=false&page=false",
+    "sort=false&age_from=false&age_to=false&category=false&size=false&page_num=false",
     "Boolean false params",
   ],
   [
-    "sort=undefined&age_from=undefined&age_to=undefined&category=undefined&size=undefined&page=undefined",
+    "sort=undefined&age_from=undefined&age_to=undefined&category=undefined&size=undefined&page_num=undefined",
     "Explicitly undefined params",
   ],
   [
-    "sort=null&age_from=null&age_to=null&category=null&size=null&page=null",
+    "sort=null&age_from=null&age_to=null&category=null&size=null&page_num=null",
     "Null params",
   ],
   [
-    "sort=🫃🏽category&age_from=🚨40&age_to=💺40&category=🗣3&size=🌯2&page=🖱2",
+    "sort=🫃🏽category&age_from=🚨40&age_to=💺40&category=🗣3&size=🌯2&page_num=🖱2",
     "Emoji params",
   ],
   [
-    "sort=hair&age_from=0&age_to=100&category=4&category=3&category=2&category=1&page=1",
+    "sort=hair&age_from=0&age_to=100&category=4&category=3&category=2&category=1&page_num=1",
     "Invalid sort param",
   ],
   [
-    "sort%3Dcategory%26age_from%3D39%26age_to%3D72%26category%3D3%26category%3D2%26size%3D21%26page%3D2",
+    "sort%3Dcategory%26age_from%3D39%26age_to%3D72%26category%3D3%26category%3D2%26size%3D21%26page_num%3D2",
     "Incorrect URL-encoding",
   ],
 ];

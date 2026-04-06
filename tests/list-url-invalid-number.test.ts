@@ -9,47 +9,47 @@ import { asc, eq } from "drizzle-orm";
 
 const paramConfigs = [
   [
-    "sort=name&age_from=zero&age_to=hundred&category=four&size=normal&page=first",
+    "sort=name&age_from=zero&age_to=hundred&category=four&size=normal&page_num=first",
     "String integers",
   ],
   [
-    "sort=name&age_from=-1&age_to=-100&&category=-3&size=-1&page=-1",
+    "sort=name&age_from=-1&age_to=-100&&category=-3&size=-1&page_num=-1",
     "Negative params",
   ],
   [
-    "sort=name&age_from=Infinity&age_to=Infinity&category=Infinity&size=Infinity&page=Infinity",
+    "sort=name&age_from=Infinity&age_to=Infinity&category=Infinity&size=Infinity&page_num=Infinity",
     "Infinity params",
   ],
   [
-    "sort=name&age_from=NaN&age_to=NaN&category=NaN&size=NaN&page=NaN",
+    "sort=name&age_from=NaN&age_to=NaN&category=NaN&size=NaN&page_num=NaN",
     "NaN params",
   ],
   [
-    "sort=name&age_from=0&age_to=100&category=5&category=4&category=3&category=2&category=1&page=1",
+    "sort=name&age_from=0&age_to=100&category=5&category=4&category=3&category=2&category=1&page_num=1",
     "Invalid category",
   ],
   [
-    "sort=name&age_from=0&age_to=100&category=4&category=3&category=2&category=1&page=0",
+    "sort=name&age_from=0&age_to=100&category=4&category=3&category=2&category=1&page_num=0",
     "Page 0",
   ],
   [
-    "sort=name&age_from=0&age_to=100&category=4&category=3&category=2&category=1&page=-0",
+    "sort=name&age_from=0&age_to=100&category=4&category=3&category=2&category=1&page_num=-0",
     "Page -0",
   ],
   [
-    "sort=name&age_from=0&age_to=100&category=4&category=3&category=2&category=1&page=2000001",
+    "sort=name&age_from=0&age_to=100&category=4&category=3&category=2&category=1&page_num=2000001",
     "Page is one-off invalid",
   ],
   [
-    "sort=name&age_from=0&age_to=100&category=4&category=3&category=2&category=1&size=0&page=1",
+    "sort=name&age_from=0&age_to=100&category=4&category=3&category=2&category=1&size=0&page_num=1",
     "Size 0",
   ],
   [
-    "sort=name&age_from=0&age_to=100&category=4&category=3&category=2&category=1&size=-0&page=1",
+    "sort=name&age_from=0&age_to=100&category=4&category=3&category=2&category=1&size=-0&page_num=1",
     "Size -0",
   ],
   [
-    "sort=name&age_from=0&age_to=100&category=4&category=3&category=2&category=1&size=1001&page=1",
+    "sort=name&age_from=0&age_to=100&category=4&category=3&category=2&category=1&size=1001&page_num=1",
     "Size is one-off invalid",
   ],
   ["sort=name&age_from=126&age_to=126", "Numbers matching Java byte limit -1"],
@@ -92,51 +92,51 @@ const paramConfigs = [
     "Numbers between numeric and integer/int limits",
   ],
   [
-    "sort=name&age_from=2147483646&age_to=2147483646&category=2147483646&size=2147483646&page=2147483646",
+    "sort=name&age_from=2147483646&age_to=2147483646&category=2147483646&size=2147483646&page_num=2147483646",
     "Numbers matching Postgres integer, C# int, Java int, and PHP int limit -1",
   ],
   [
-    "sort=name&age_from=2147483647&age_to=2147483647&category=2147483647&size=2147483647&page=2147483647",
+    "sort=name&age_from=2147483647&age_to=2147483647&category=2147483647&size=2147483647&page_num=2147483647",
     "Numbers matching Postgres integer, C# int, Java int, and PHP int limit",
   ],
   [
-    "sort=name&age_from=2147483648&age_to=2147483648&category=2147483648&size=2147483648&page=2147483648",
+    "sort=name&age_from=2147483648&age_to=2147483648&category=2147483648&size=2147483648&page_num=2147483648",
     "Numbers matching Postgres integer, C# int, Java int, and PHP int limit +1",
   ],
   [
-    "sort=name&age_from=67393759202037&age_to=87234510930111&category=578396052781095&size=100038592197&page=6582930050000",
+    "sort=name&age_from=67393759202037&age_to=87234510930111&category=578396052781095&size=100038592197&page_num=6582930050000",
     "Numbers between integer/int and Number limits",
   ],
   [
-    "sort=name&age_from=9007199254740990&age_to=9007199254740990&category=9007199254740990&size=9007199254740990&page=9007199254740990",
+    "sort=name&age_from=9007199254740990&age_to=9007199254740990&category=9007199254740990&size=9007199254740990&page_num=9007199254740990",
     "Numbers matching Javascript Number limit -1",
   ],
   [
-    "sort=name&age_from=9007199254740991&age_to=9007199254740991&category=9007199254740991&size=9007199254740991&page=9007199254740991",
+    "sort=name&age_from=9007199254740991&age_to=9007199254740991&category=9007199254740991&size=9007199254740991&page_num=9007199254740991",
     "Numbers matching Javascript Number limit",
   ],
   [
-    "sort=name&age_from=9007199254740992&age_to=9007199254740992&category=9007199254740992&size=9007199254740992&page=9007199254740992",
+    "sort=name&age_from=9007199254740992&age_to=9007199254740992&category=9007199254740992&size=9007199254740992&page_num=9007199254740992",
     "Numbers matching Javascript Number limit +1",
   ],
   [
-    "sort=name&age_from=106849305968812678&age_to=112869504997846371&category=66749029675811059&size=234875980900010000&page=77859486028677589",
+    "sort=name&age_from=106849305968812678&age_to=112869504997846371&category=66749029675811059&size=234875980900010000&page_num=77859486028677589",
     "Numbers between Number and long limits",
   ],
   [
-    "sort=name&age_from=9223372036854775806&age_to=9223372036854775806&category=9223372036854775806&size=9223372036854775806&page=9223372036854775806",
+    "sort=name&age_from=9223372036854775806&age_to=9223372036854775806&category=9223372036854775806&size=9223372036854775806&page_num=9223372036854775806",
     "Numbers matching C# long and Java long limit -1",
   ],
   [
-    "sort=name&age_from=9223372036854775807&age_to=9223372036854775807&category=9223372036854775807&size=9223372036854775807&page=9223372036854775807",
+    "sort=name&age_from=9223372036854775807&age_to=9223372036854775807&category=9223372036854775807&size=9223372036854775807&page_num=9223372036854775807",
     "Numbers matching C# long and Java long limit",
   ],
   [
-    "sort=name&age_from=9223372036854775808&age_to=9223372036854775808&category=9223372036854775808&size=9223372036854775808&page=9223372036854775808",
+    "sort=name&age_from=9223372036854775808&age_to=9223372036854775808&category=9223372036854775808&size=9223372036854775808&page_num=9223372036854775808",
     "Numbers matching C# long and Java long limit +1",
   ],
   [
-    "sort=name&age_from=1042233720368547758080&age_to=9223371002036854775808&category=92233720368568394864775808&size=92233720000000236854775808&page=2000003434223372036854775808",
+    "sort=name&age_from=1042233720368547758080&age_to=9223371002036854775808&category=92233720368568394864775808&size=92233720000000236854775808&page_num=2000003434223372036854775808",
     "Numbers larger than long limits",
   ],
 ];

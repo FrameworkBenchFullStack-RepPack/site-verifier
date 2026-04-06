@@ -19,7 +19,7 @@ function tableFinder() {
 
 async function setPaging(
   config: ListConfig,
-  name: "size" | "page",
+  name: "size" | "page_num",
   value: number,
 ): Promise<void> {
   await driver.findElement(By.css(`input[name="${name}"]`)).click();
@@ -43,7 +43,7 @@ function setSize(config: ListConfig, value: number): Promise<void> {
 }
 
 function setPage(config: ListConfig, value: number): Promise<void> {
-  return setPaging(config, "page", value);
+  return setPaging(config, "page_num", value);
 }
 
 for (const config of listConfigs) {

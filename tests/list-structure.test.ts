@@ -155,7 +155,7 @@ for (const config of listConfigs) {
       expect(sizeRequired, "Size input is required").toBe("true");
 
       const pageElements = await controlsElement.findElements(
-        By.css(`input[type="number"][name="page"]`),
+        By.css(`input[type="number"][name="page_num"]`),
       );
       expect(pageElements.length, "There is a page input").toBe(1);
       const pageElement = pageElements[0];
