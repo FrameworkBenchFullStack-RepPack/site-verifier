@@ -1,4 +1,4 @@
-import { By, Key, logging, WebDriver } from "selenium-webdriver";
+import { By, Key, logging, until, WebDriver } from "selenium-webdriver";
 import { beforeAll, afterAll, it, describe, expect } from "vitest";
 import { getDriver } from "../lib/driver";
 import { listConfigs } from "../lib/list";
@@ -10,7 +10,10 @@ let driver: WebDriver;
 for (const config of listConfigs) {
   describe(`List component can handle empty inputs: ${config.page.url.pathname}${config.js ? "" : " (js disabled)"}`, () => {
     beforeAll(async () => {
-      driver = await getDriver(config.page.url, { js: config.js });
+      driver = await getDriver(config.page.url, {
+        js: config.js,
+        waitForElement: By.id("list"),
+      });
     });
 
     afterAll(async () => {
@@ -40,11 +43,13 @@ for (const config of listConfigs) {
         const value = await driver
           .findElement(By.css(`#list input[name="${name}"]`))
           .getAttribute("value");
+
         expect(value, "Input value is empty").toBe("");
       }
     });
     it("Does not log to console", async () => {
       const logs = await driver.manage().logs().get(logging.Type.BROWSER);
+
       expect(logs.length, "No logs were collected").toBe(0);
     });
   });

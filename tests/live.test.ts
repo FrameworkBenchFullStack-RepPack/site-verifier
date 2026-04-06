@@ -1,4 +1,4 @@
-import { By, type WebDriver } from "selenium-webdriver";
+import { By, until, type WebDriver } from "selenium-webdriver";
 import { expect, beforeAll, afterAll, it, describe } from "vitest";
 import { getDriver } from "../lib/driver";
 import { pages } from "../lib/pages";
@@ -14,7 +14,9 @@ function getIndexData(index: number): [string, string, string] {
 for (const page of [pages.live, pages.home]) {
   describe(`Live component data flow: ${page.url.pathname}`, () => {
     beforeAll(async () => {
-      driver = await getDriver(page.url);
+      driver = await getDriver(page.url, {
+        waitForElement: By.id("live-data"),
+      });
     });
 
     afterAll(async () => {

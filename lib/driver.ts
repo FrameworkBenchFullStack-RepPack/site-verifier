@@ -1,8 +1,9 @@
-import { Builder, logging, WebDriver } from "selenium-webdriver";
+import { Builder, By, logging, until, WebDriver } from "selenium-webdriver";
 import chrome from "selenium-webdriver/chrome";
 
 export type DriverOptions = {
   js?: boolean;
+  waitForElement?: By;
 };
 
 const loggingPrefs = new logging.Preferences();
@@ -30,6 +31,11 @@ export async function getDriver(
       .build();
 
     if (url !== false) await driver.get(urlString);
+
+    if (options?.waitForElement) {
+      const locator = driver.findElement(options.waitForElement);
+      await driver.wait(until.elementIsVisible(locator), 5_000);
+    }
   } catch (error) {
     await driver!?.quit();
     throw error;

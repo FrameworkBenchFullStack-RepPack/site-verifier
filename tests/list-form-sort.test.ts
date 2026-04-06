@@ -1,4 +1,4 @@
-import { By, WebDriver } from "selenium-webdriver";
+import { By, until, WebDriver } from "selenium-webdriver";
 import { Select } from "selenium-webdriver/lib/select";
 import { beforeAll, afterAll, it, describe } from "vitest";
 import { getDriver } from "../lib/driver";
@@ -35,7 +35,10 @@ async function setSort(
 for (const config of listConfigs) {
   describe(`List component form input: ${config.page.url.pathname}${config.js ? "" : " (js disabled)"}`, () => {
     beforeAll(async () => {
-      driver = await getDriver(config.page.url, { js: config.js });
+      driver = await getDriver(config.page.url, {
+        js: config.js,
+        waitForElement: By.id("list"),
+      });
     });
 
     afterAll(async () => {
@@ -54,7 +57,8 @@ for (const config of listConfigs) {
       await driver.wait(
         async () => {
           const pageRows = await getTableRows(tableFinder);
-          return compareTableRows(pageRows, dbRowsAge);
+          const result = compareTableRows(pageRows, dbRowsAge);
+          return result;
         },
         2500,
         "People are sorted by ascending age",

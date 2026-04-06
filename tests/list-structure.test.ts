@@ -1,4 +1,4 @@
-import { By, type WebDriver } from "selenium-webdriver";
+import { By, until, type WebDriver } from "selenium-webdriver";
 import { expect, beforeAll, afterAll, it, describe } from "vitest";
 import { getDriver } from "../lib/driver";
 import { listConfigs } from "../lib/list";
@@ -9,7 +9,10 @@ let driver: WebDriver;
 for (const config of listConfigs) {
   describe(`List component structure: ${config.page.url.pathname}${config.js ? "" : " (js disabled)"}`, () => {
     beforeAll(async () => {
-      driver = await getDriver(config.page.url, { js: config.js });
+      driver = await getDriver(config.page.url, {
+        js: config.js,
+        waitForElement: By.id("list"),
+      });
     });
 
     afterAll(async () => {
@@ -178,6 +181,7 @@ for (const config of listConfigs) {
       const buttonText =
         (await buttonElement.getAttribute("value")) ||
         (await buttonElement.getText());
+
       expect(buttonText, "Button has correct text").toBe("Search");
     });
 

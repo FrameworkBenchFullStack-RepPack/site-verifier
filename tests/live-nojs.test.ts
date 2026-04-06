@@ -1,4 +1,4 @@
-import { By, type WebDriver } from "selenium-webdriver";
+import { By, until, type WebDriver } from "selenium-webdriver";
 import { expect, beforeAll, afterAll, it, describe } from "vitest";
 import { getDriver } from "../lib/driver";
 import { pages } from "../lib/pages";
@@ -8,7 +8,10 @@ let driver: WebDriver;
 for (const page of [pages.live, pages.home]) {
   describe(`Live component with JS disabled: ${page.url.pathname}`, () => {
     beforeAll(async () => {
-      driver = await getDriver(page.url, { js: false });
+      driver = await getDriver(page.url, {
+        js: false,
+        waitForElement: By.id("live-data"),
+      });
     });
 
     afterAll(async () => {

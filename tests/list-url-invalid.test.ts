@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { pages } from "../lib/pages";
-import { By, logging, WebDriver } from "selenium-webdriver";
+import { By, logging, until, WebDriver } from "selenium-webdriver";
 import { getDriver } from "../lib/driver";
 import { compareTableRows, getTableRows } from "../lib/list";
 import { category, person } from "../drizzle/schema";
@@ -77,7 +77,7 @@ for (const page of [pages.list, pages.home]) {
       beforeAll(async () => {
         const url = new URL(page.url);
         url.search = params;
-        driver = await getDriver(url);
+        driver = await getDriver(url, { waitForElement: By.id("list") });
       });
 
       afterAll(async () => {
