@@ -1,4 +1,4 @@
-import { By, until, WebDriver } from "selenium-webdriver";
+import { By, WebDriver } from "selenium-webdriver";
 import { Select } from "selenium-webdriver/lib/select";
 import { beforeAll, afterAll, it, describe } from "vitest";
 import { getDriver } from "../lib/driver";
@@ -57,8 +57,7 @@ for (const config of listConfigs) {
       await driver.wait(
         async () => {
           const pageRows = await getTableRows(tableFinder);
-          const result = compareTableRows(pageRows, dbRowsAge);
-          return result;
+          return compareTableRows(pageRows, dbRowsAge);
         },
         2500,
         "People are sorted by ascending age",

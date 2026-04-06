@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { pages } from "../lib/pages";
-import { By, until, WebDriver } from "selenium-webdriver";
+import { By, WebDriver } from "selenium-webdriver";
 import { getDriver } from "../lib/driver";
 import { compareTableRows, getTableRows } from "../lib/list";
 import { category, person } from "../drizzle/schema";

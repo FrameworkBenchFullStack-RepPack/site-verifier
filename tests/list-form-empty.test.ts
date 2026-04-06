@@ -1,4 +1,4 @@
-import { By, Key, logging, until, WebDriver } from "selenium-webdriver";
+import { By, Key, logging, WebDriver } from "selenium-webdriver";
 import { beforeAll, afterAll, it, describe, expect } from "vitest";
 import { getDriver } from "../lib/driver";
 import { listConfigs } from "../lib/list";
@@ -43,13 +43,11 @@ for (const config of listConfigs) {
         const value = await driver
           .findElement(By.css(`#list input[name="${name}"]`))
           .getAttribute("value");
-
         expect(value, "Input value is empty").toBe("");
       }
     });
     it("Does not log to console", async () => {
       const logs = await driver.manage().logs().get(logging.Type.BROWSER);
-
       expect(logs.length, "No logs were collected").toBe(0);
     });
   });

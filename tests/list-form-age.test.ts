@@ -1,4 +1,4 @@
-import { By, Key, until, WebDriver } from "selenium-webdriver";
+import { By, Key, WebDriver } from "selenium-webdriver";
 import { beforeAll, afterAll, it, describe } from "vitest";
 import { getDriver } from "../lib/driver";
 import {

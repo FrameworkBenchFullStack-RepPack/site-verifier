@@ -1,4 +1,4 @@
-import { expect, beforeAll, it, describe, afterAll } from "vitest";
+import { expect, beforeAll, it, describe } from "vitest";
 import { pages } from "../lib/pages";
 import { By } from "selenium-webdriver";
 import { getDriver } from "../lib/driver";
