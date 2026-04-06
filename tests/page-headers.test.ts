@@ -71,14 +71,14 @@ for (const [pathname, link] of links.entries()) {
           `default-src 'self'`,
         );
         expect(csp, "CSP restricts base-uri to self or none").toMatch(
-          /base-uri '(?:self|none)';/v,
+          /base-uri '(?:self|none)'/v,
         );
         expect(csp, "CSP blocks frame-ancestors").toContain(
           `frame-ancestors 'none';`,
         );
-        expect(csp, "CSP blocks object-src").toContain(`object-src 'none';`);
+        expect(csp, "CSP blocks object-src").toContain(`object-src 'none'`);
         expect(csp, "CSP restricts form-action to self").toContain(
-          `form-action 'self';`,
+          `form-action 'self'`,
         );
       });
     }
