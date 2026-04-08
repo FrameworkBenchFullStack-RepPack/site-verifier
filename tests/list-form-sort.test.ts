@@ -1,6 +1,6 @@
 import { By, WebDriver } from "selenium-webdriver";
 import { Select } from "selenium-webdriver/lib/select";
-import { beforeAll, afterAll, it, describe } from "vitest";
+import { beforeAll, afterAll, it, describe, expect } from "vitest";
 import { getDriver } from "../lib/driver";
 import {
   compareTableRows,
@@ -10,7 +10,7 @@ import {
 } from "../lib/list";
 import { db } from "../data/database";
 import { category, person } from "../drizzle/schema";
-import { and, asc, eq, gte, lte } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 
 let driver: WebDriver;
 function tableFinder() {
@@ -66,6 +66,12 @@ for (const config of listConfigs) {
         100,
       );
 
+      const urlAge = new URL(await driver.getCurrentUrl());
+      expect(
+        urlAge.searchParams.get("sort"),
+        "Seacrh param for sort is set",
+      ).toBe("age");
+
       const dbRowsCategory = await db
         .select()
         .from(person)
@@ -83,6 +89,12 @@ for (const config of listConfigs) {
         "People are sorted by ascending category name",
         100,
       );
+
+      const urlCategory = new URL(await driver.getCurrentUrl());
+      expect(
+        urlCategory.searchParams.get("sort"),
+        "Seacrh param for sort is set",
+      ).toBe("category");
     });
   });
 }

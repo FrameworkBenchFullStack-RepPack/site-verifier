@@ -1,5 +1,5 @@
 import { By, Key, WebDriver } from "selenium-webdriver";
-import { beforeAll, afterAll, it, describe } from "vitest";
+import { beforeAll, afterAll, it, describe, expect } from "vitest";
 import { getDriver } from "../lib/driver";
 import {
   compareTableRows,
@@ -72,6 +72,12 @@ for (const config of listConfigs) {
         100,
       );
 
+      const url1_1 = new URL(await driver.getCurrentUrl());
+      expect(
+        url1_1.searchParams.get("size"),
+        "Seacrh param for size is set",
+      ).toBe("1");
+
       await setSize(config, 255);
       await driver.wait(
         async () => {
@@ -81,6 +87,12 @@ for (const config of listConfigs) {
         "Exactly 255 persons are shown",
         100,
       );
+
+      const url255_1 = new URL(await driver.getCurrentUrl());
+      expect(
+        url255_1.searchParams.get("size"),
+        "Seacrh param for size is set",
+      ).toBe("255");
 
       const dbRows83_1 = await db
         .select()
@@ -99,6 +111,12 @@ for (const config of listConfigs) {
         "The first page with exactly 83 people are shown",
         100,
       );
+
+      const url83_1 = new URL(await driver.getCurrentUrl());
+      expect(
+        url83_1.searchParams.get("size"),
+        "Seacrh param for size is set",
+      ).toBe("83");
 
       const dbRows83_2 = await db
         .select()
@@ -119,6 +137,16 @@ for (const config of listConfigs) {
         100,
       );
 
+      const url83_2 = new URL(await driver.getCurrentUrl());
+      expect(
+        url83_2.searchParams.get("size"),
+        "Seacrh param for size is set",
+      ).toBe("83");
+      expect(
+        url83_2.searchParams.get("page_num"),
+        "Seacrh param for page number is set",
+      ).toBe("2");
+
       const dbRows83_92 = await db
         .select()
         .from(person)
@@ -138,6 +166,16 @@ for (const config of listConfigs) {
         100,
       );
 
+      const url83_92 = new URL(await driver.getCurrentUrl());
+      expect(
+        url83_92.searchParams.get("size"),
+        "Seacrh param for size is set",
+      ).toBe("83");
+      expect(
+        url83_92.searchParams.get("page_num"),
+        "Seacrh param for page number is set",
+      ).toBe("92");
+
       await setPage(config, 122);
       await driver.wait(
         async () => {
@@ -154,6 +192,16 @@ for (const config of listConfigs) {
         "The 122nd page, which is empty, is shown",
         100,
       );
+
+      const url83_122 = new URL(await driver.getCurrentUrl());
+      expect(
+        url83_122.searchParams.get("size"),
+        "Seacrh param for size is set",
+      ).toBe("83");
+      expect(
+        url83_122.searchParams.get("page_num"),
+        "Seacrh param for page number is set",
+      ).toBe("122");
     });
   });
 }

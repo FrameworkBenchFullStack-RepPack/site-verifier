@@ -45,8 +45,10 @@ for (const config of listConfigs) {
           .getAttribute("value");
         expect(value, "Input value is empty").toBe("");
       }
-    });
-    it("Does not log to console", async () => {
+
+      const url = new URL(await driver.getCurrentUrl());
+      expect(url.search, "Seacrh params is empty").toBe("");
+
       const logs = await driver.manage().logs().get(logging.Type.BROWSER);
       expect(logs.length, "No logs were collected").toBe(0);
     });

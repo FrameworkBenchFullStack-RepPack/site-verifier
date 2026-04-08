@@ -1,5 +1,5 @@
 import { By, Key, WebDriver } from "selenium-webdriver";
-import { beforeAll, afterAll, it, describe } from "vitest";
+import { beforeAll, afterAll, it, describe, expect } from "vitest";
 import { getDriver } from "../lib/driver";
 import {
   compareTableRows,
@@ -81,6 +81,12 @@ for (const config of listConfigs) {
         100,
       );
 
+      const url53_ = new URL(await driver.getCurrentUrl());
+      expect(
+        url53_.searchParams.get("age_from"),
+        "Seacrh param for age_from is set",
+      ).toBe("53");
+
       const dbRows53_70 = await db
         .select()
         .from(person)
@@ -99,6 +105,16 @@ for (const config of listConfigs) {
         "All people with age above 88 are removed",
         100,
       );
+
+      const url53_70 = new URL(await driver.getCurrentUrl());
+      expect(
+        url53_70.searchParams.get("age_from"),
+        "Seacrh param for age_from is set",
+      ).toBe("53");
+      expect(
+        url53_70.searchParams.get("age_to"),
+        "Seacrh param for age_to is set",
+      ).toBe("70");
 
       const dbRows_70 = await db
         .select()
@@ -119,6 +135,12 @@ for (const config of listConfigs) {
         100,
       );
 
+      const url_70 = new URL(await driver.getCurrentUrl());
+      expect(
+        url_70.searchParams.get("age_to"),
+        "Seacrh param for age_to is set",
+      ).toBe("70");
+
       await setAgeTo(config, 10);
       await driver.wait(
         async () => {
@@ -135,6 +157,12 @@ for (const config of listConfigs) {
         "There are no people in the list",
         100,
       );
+
+      const url_10 = new URL(await driver.getCurrentUrl());
+      expect(
+        url_10.searchParams.get("age_to"),
+        "Seacrh param for age_to is set",
+      ).toBe("10");
     });
   });
 }

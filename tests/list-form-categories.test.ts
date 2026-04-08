@@ -1,5 +1,5 @@
 import { By, WebDriver } from "selenium-webdriver";
-import { beforeAll, afterAll, it, describe } from "vitest";
+import { beforeAll, afterAll, it, describe, expect } from "vitest";
 import { getDriver } from "../lib/driver";
 import {
   compareTableRows,
@@ -63,6 +63,12 @@ for (const config of listConfigs) {
         100,
       );
 
+      const url3 = new URL(await driver.getCurrentUrl());
+      expect(
+        url3.searchParams.getAll("category").sort(),
+        "Search params for categories are set",
+      ).toStrictEqual(["1", "3", "4"]);
+
       const dbRows2 = await db
         .select()
         .from(person)
@@ -82,6 +88,12 @@ for (const config of listConfigs) {
         100,
       );
 
+      const url2 = new URL(await driver.getCurrentUrl());
+      expect(
+        url2.searchParams.getAll("category").sort(),
+        "Search params for categories are set",
+      ).toStrictEqual(["1", "3"]);
+
       const dbRows1 = await db
         .select()
         .from(person)
@@ -100,6 +112,12 @@ for (const config of listConfigs) {
         "All people from the category are removed",
         100,
       );
+
+      const url1 = new URL(await driver.getCurrentUrl());
+      expect(
+        url1.searchParams.getAll("category").sort(),
+        "Search params for categories are set",
+      ).toStrictEqual(["1"]);
 
       const dbRows4 = await db
         .select()
