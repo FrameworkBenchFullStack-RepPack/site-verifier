@@ -24,7 +24,9 @@ async function toggleCategory(
     .findElement(By.css(`input[name="category"][value="${category}"]`))
     .click();
   if (config.js === false) {
-    await driver.findElement(By.css(`#list form :is(button, input[type="submit"])`)).click();
+    await driver
+      .findElement(By.css(`#list form :is(button, input[type="submit"])`))
+      .click();
   }
 }
 

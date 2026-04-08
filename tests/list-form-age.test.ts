@@ -34,7 +34,9 @@ async function setAge(
   ]);
 
   if (config.js === false) {
-    await driver.findElement(By.css(`#list form :is(button, input[type="submit"])`)).click();
+    await driver
+      .findElement(By.css(`#list form :is(button, input[type="submit"])`))
+      .click();
   }
 }
 
