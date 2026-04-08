@@ -34,11 +34,15 @@ for (const page of [pages.live, pages.home]) {
       let initialCellText: string;
       await driver.wait(
         async () => {
-          initialCellText = await (
-            await driver.findElement(
-              By.css("#live-data > tbody > tr > td:first-of-type"),
-            )
-          ).getText();
+          try {
+            initialCellText = await (
+              await driver.findElement(
+                By.css("#live-data > tbody > tr > td:first-of-type"),
+              )
+            ).getText();
+          } catch {
+            return false;
+          }
           return Boolean(initialCellText);
         },
         2000,
@@ -70,15 +74,19 @@ for (const page of [pages.live, pages.home]) {
         const nextData = getIndexData(dataIndex + 1);
         let matches = true;
         let nextMatches = true;
-        const textPromises = cells.map((cell) => cell.getText());
-        for (const [cellIndex, textPromise] of textPromises.entries()) {
-          const text = await textPromise;
-          if (text !== currentData[cellIndex]) {
-            matches = false;
+        try {
+          const texts = await Promise.all(cells.map((cell) => cell.getText()));
+          for (const [cellIndex, text] of texts.entries()) {
+            if (text !== currentData[cellIndex]) {
+              matches = false;
+            }
+            if (text !== nextData[cellIndex]) {
+              nextMatches = false;
+            }
           }
-          if (text !== nextData[cellIndex]) {
-            nextMatches = false;
-          }
+        } catch {
+          fails++;
+          continue;
         }
         if (!(matches || nextMatches) && fails < 2) {
           fails++;
