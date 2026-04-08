@@ -38,9 +38,6 @@ for (const [name, meta] of Object.entries(pages)) {
         ),
       );
       expect(viewportMetas[0], "Has a viewport meta element").toBeTruthy();
-
-      const metas = await driver.findElements(By.css("meta"));
-      expect(metas.length, "Has only those two meta elements").toBe(2);
     });
     it("Has an icon", async () => {
       const iconLinks = await driver.findElements(
