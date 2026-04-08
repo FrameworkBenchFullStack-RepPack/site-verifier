@@ -48,7 +48,7 @@ for (const page of [pages.list, pages.home]) {
       beforeAll(async () => {
         const url = new URL(page.url);
         url.search = params;
-        driver = await getDriver(url);
+        driver = await getDriver(url, { waitForElement: By.id("list") });
       });
 
       afterAll(async () => {

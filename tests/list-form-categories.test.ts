@@ -31,7 +31,10 @@ async function toggleCategory(
 for (const config of listConfigs) {
   describe(`List component form input: ${config.page.url.pathname}${config.js ? "" : " (js disabled)"}`, () => {
     beforeAll(async () => {
-      driver = await getDriver(config.page.url, { js: config.js });
+      driver = await getDriver(config.page.url, {
+        js: config.js,
+        waitForElement: By.id("list"),
+      });
     });
 
     afterAll(async () => {

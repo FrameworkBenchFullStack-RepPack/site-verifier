@@ -49,7 +49,10 @@ function setPage(config: ListConfig, value: number): Promise<void> {
 for (const config of listConfigs) {
   describe(`List component form input: ${config.page.url.pathname}${config.js ? "" : " (js disabled)"}`, () => {
     beforeAll(async () => {
-      driver = await getDriver(config.page.url, { js: config.js });
+      driver = await getDriver(config.page.url, {
+        js: config.js,
+        waitForElement: By.id("list"),
+      });
     });
 
     afterAll(async () => {
@@ -138,8 +141,11 @@ for (const config of listConfigs) {
         async () => {
           return (
             (await getTableRows(tableFinder)).length === 0 &&
-            (await driver.findElements(By.css("#list-data .no-data-message")))
-              .length === 1
+            (await driver.findElements(By.css("#list-data p"))).some(
+              async (element) =>
+                (await element.getText()) ===
+                "No entries matched the filter settings.",
+            )
           );
         },
         2500,

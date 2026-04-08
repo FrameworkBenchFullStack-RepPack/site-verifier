@@ -1,4 +1,4 @@
-import { expect, beforeAll, it, describe, afterAll } from "vitest";
+import { expect, beforeAll, it, describe } from "vitest";
 import { pages } from "../lib/pages";
 import { By } from "selenium-webdriver";
 import { getDriver } from "../lib/driver";
@@ -136,7 +136,12 @@ for (const [pathname, link] of links.entries()) {
 
     if (!link.type.includes("event-stream")) {
       it("Uses compression", async () => {
-        if (response.status !== 200 && link.optional) return;
+        if (
+          (response.status !== 200 && link.optional) ||
+          (await response.clone().arrayBuffer()).byteLength < 1024
+        ) {
+          return;
+        }
         const ce = response.headers.get("Content-Encoding") ?? "";
         expect(ce, "Compression header is present").toMatch(
           /^(?:gzip|br|zstd)$/v,

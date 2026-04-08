@@ -14,7 +14,9 @@ function getIndexData(index: number): [string, string, string] {
 for (const page of [pages.live, pages.home]) {
   describe(`Live component data flow: ${page.url.pathname}`, () => {
     beforeAll(async () => {
-      driver = await getDriver(page.url);
+      driver = await getDriver(page.url, {
+        waitForElement: By.id("live-data"),
+      });
     });
 
     afterAll(async () => {
