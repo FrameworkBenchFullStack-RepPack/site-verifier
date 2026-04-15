@@ -12,7 +12,7 @@ for (const [name, meta] of Object.entries(pages)) {
     });
 
     afterAll(async () => {
-      driver.quit();
+      await driver.quit();
     });
 
     it("Is in standards mode", async () => {

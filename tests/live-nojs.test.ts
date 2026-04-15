@@ -15,7 +15,7 @@ for (const page of [pages.live, pages.home]) {
     });
 
     afterAll(async () => {
-      driver.quit();
+      await driver.quit();
     });
 
     it("Has #live-data table", async () => {
