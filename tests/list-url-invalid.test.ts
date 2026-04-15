@@ -81,7 +81,7 @@ for (const page of [pages.list, pages.home]) {
       });
 
       afterAll(async () => {
-        driver.quit();
+        await driver.quit();
       });
 
       it(`${description}: ${params}`, async () => {

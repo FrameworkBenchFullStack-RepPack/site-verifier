@@ -44,7 +44,7 @@ for (const config of listConfigs) {
     });
 
     afterAll(async () => {
-      driver.quit();
+      await driver.quit();
     });
 
     it("Can sort", async () => {
